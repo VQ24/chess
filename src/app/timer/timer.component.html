@@ -1,0 +1,14 @@
+<p>
+White:
+  <span *ngIf = "!_turn">{{timeWhite | time}}</span>
+  <span *ngIf = "_turn">{{timeWhite-ticks | time}}</span>
+Black:
+  <span *ngIf = "!_turn">{{timeBlack-ticks | time}}</span>
+  <span *ngIf = "_turn">{{timeBlack | time}}</span>  
+</p>
+<input type="button" value="toggle"
+(click) = "toggleTimer()">
+<input type="button" value="start"
+(click) = "startTimer()">
+<input type="button" value="stop"
+(click) = "stopTimer()">

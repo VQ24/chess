@@ -1,0 +1,65 @@
+<div class = "container">
+    <h2> Chess </h2>    
+</div>
+
+<table>
+  <tr>
+    <th></th> 
+    <th><span class = 'cell-number'>A</span></th> 
+    <th><span class = 'cell-number'>B</span></th>
+    <th><span class = 'cell-number'>C</span></th> 
+    <th><span class = 'cell-number'>D</span></th>
+    <th><span class = 'cell-number'>E</span></th> 
+    <th><span class = 'cell-number'>F</span></th>
+    <th><span class = 'cell-number'>G</span></th> 
+    <th><span class = 'cell-number'>H</span></th>
+  </tr>
+    <tr 
+    *ngFor = "let row of chessBoard; index as i">
+        <td><span class = 'cell-number'>{{i+1}}</span></td>
+        <td 
+            *ngFor = "let c of row"
+            [ngClass] = "c.getColor()"
+            class = "cell"
+            (click) = "makeMove(c.getCoord(),c.getFigure())">
+            
+            <div 
+            class ="cell-inner"
+            [class.cell-colorize] = "c.isToMove()">
+                <img *ngIf = "c.getFigure() != ''"
+                [attr.src] = "'../assets/'+c.getFigure().getColor()+'_'+c.getFigure().getType()+'.png'"
+                [class.cell-to-play] = "c.getFigure().getColor() === moveTurn()"
+                class = "figure-image"> 
+            </div>
+
+        </td>
+    </tr>
+</table>
+
+<div class = "container">
+    <p class = "info">Turn: <span 
+        [attr.class] = "'important-'+moveTurn()">{{moveTurn()}}
+        </span>
+    </p>
+</div>
+
+<div>
+<div class="container">
+<div  
+[class.active] = "this.timerComponent._turn" 
+class = "important-count">
+  <span
+ 
+  class="add-info">White:</span><br>  
+  <span *ngIf = "!this.timerComponent._turn">{{this.timerComponent.timeWhite | time}}</span>
+  <span *ngIf = "this.timerComponent._turn">{{this.timerComponent.timeWhite-this.timerComponent.ticks | time}}</span>
+</div>
+<div 
+[class.active] = "!this.timerComponent._turn"
+class = "important-count">
+  <span class="add-info">Black:</span><br>
+  <span *ngIf = "!this.timerComponent._turn">{{this.timerComponent.timeBlack-this.timerComponent.ticks | time}}</span>
+  <span *ngIf = "this.timerComponent._turn">{{this.timerComponent.timeBlack | time}}</span>
+</div> 
+</div>
+</div>
